@@ -13,27 +13,33 @@ options = [
 question_number = 1
 correct_answers = 0
 total_questions = len(questions)
+#  I wrote all possible values, because in 'check_answer' function if 'choice' input 
+# isn't in this list, program doesnt stop until it's valid
 answer_keys = ["A", "B", "C", "D"]
 
 def start_quiz():
     display_questions()
     grade_user()
 
-
 def display_questions():
     global question_number
     for question in questions:
         print(f"<---------- Question {question_number} ---------->")
         print(f"| {question}")
+        # Printing options of specific question
         for option in options[question_number - 1]:
             print(option)
         question_number += 1
         check_answer(question)
 
+
 def check_answer(key):
+    # Defining 'correct_answers' variable in a function as global, 
+    # it helps code to find this variable faster when it's global
     global correct_answers
     correct_answer = questions.get(key).capitalize()
     choice = input("> Your answer: ").capitalize()
+    # Validation of choice input
     while not len(choice) == 1 and choice.isdigit() and not choice.capitalize() in answer_keys:
         choice = input(" > Your answer: ").capitalize()
     if choice == correct_answer:
